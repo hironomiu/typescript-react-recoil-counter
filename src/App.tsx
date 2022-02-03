@@ -1,6 +1,7 @@
 import { FC, Suspense } from 'react'
 import { atom, RecoilRoot, selector } from 'recoil'
 import Main from './components/Main'
+import './App.css'
 
 export const counterAtom = atom({
   key: 'counterAtom',
@@ -42,12 +43,22 @@ export const asyncCounterSelector = selector<number>({
   },
 })
 
+const Fallback = () => {
+  return (
+    <div id="load">
+      <span>Loading...</span>
+    </div>
+  )
+}
+
 const App: FC = () => {
   return (
     <div>
       <RecoilRoot>
-        <Suspense fallback={<div>Loading...</div>}>
-          <Main />
+        <Suspense fallback={<Fallback />}>
+          <div>
+            <Main />
+          </div>
         </Suspense>
       </RecoilRoot>
     </div>
