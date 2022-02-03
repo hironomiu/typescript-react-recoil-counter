@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { counterAtom, counterSelector, asyncCounterSelector } from '../App'
+import './Main.css'
 
 const Main: FC = () => {
   const countValue = useRecoilValue(counterAtom)
@@ -15,29 +16,58 @@ const Main: FC = () => {
         alignItems: 'center',
       }}
     >
-      <h1>Counter</h1>
-      <div>
-        <button onClick={() => setCount(count - 1)}>count Decrement</button>
-        <button onClick={() => setCounter(counter - 1)}>
-          counter Decrement
-        </button>
+      <h1>Recoil Counter</h1>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <h2>countValue</h2>
         <span>{countValue}</span>
-        <span>{count}</span>
-        <span>{counter}</span>
-        <button onClick={() => setCount(count + 1)}>count Increment</button>
-        <button onClick={() => setCounter(counter + 1)}>
-          counter Increment
-        </button>
       </div>
-      <div>
-        <button onClick={async () => setAsyncState(asyncCount - 1)}>
-          async Decrement
-        </button>
-        <span>{asyncCount}</span>
-
-        <button onClick={async () => setAsyncState(asyncCount + 1)}>
-          async Increment
-        </button>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <h2>count</h2>
+        <div>
+          <button onClick={() => setCount(count - 1)}>-</button>
+          <span>{count}</span>
+          <button onClick={() => setCount(count + 1)}>+</button>
+        </div>
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <h2>counter</h2>
+        <div>
+          <button onClick={() => setCounter(counter - 1)}>-</button>
+          <span>{counter}</span>
+          <button onClick={() => setCounter(counter + 1)}>+</button>
+        </div>
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <h2>asyncCount</h2>
+        <div>
+          <button onClick={async () => setAsyncState(asyncCount - 1)}>-</button>
+          <span>{asyncCount}</span>
+          <button onClick={async () => setAsyncState(asyncCount + 1)}>+</button>
+        </div>
       </div>
     </div>
   )
