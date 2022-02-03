@@ -1,13 +1,18 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { counterAtom, counterSelector, asyncCounterSelector } from '../App'
 import './Main.css'
 
-const Main: FC = () => {
+const Main: FC = memo(() => {
   const countValue = useRecoilValue(counterAtom)
   const [count, setCount] = useRecoilState(counterAtom)
   const [counter, setCounter] = useRecoilState(counterSelector)
   const [asyncCount, setAsyncState] = useRecoilState(asyncCounterSelector)
+
+  const handleClickCount = (count: number) => {
+    setCount(count)
+  }
+
   return (
     <main>
       <h1>Recoil Counter</h1>
@@ -20,9 +25,9 @@ const Main: FC = () => {
           <h2>count</h2>
         </div>
         <div>
-          <button onClick={() => setCount(count - 1)}>-</button>
+          <button onClick={() => handleClickCount(count - 1)}>-</button>
           <span>{count}</span>
-          <button onClick={() => setCount(count + 1)}>+</button>
+          <button onClick={() => handleClickCount(count + 1)}>+</button>
         </div>
       </div>
       <div className="div">
@@ -43,6 +48,6 @@ const Main: FC = () => {
       </div>
     </main>
   )
-}
+})
 
 export default Main
