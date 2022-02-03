@@ -30,24 +30,12 @@ const Main: FC = () => {
         </button>
       </div>
       <div>
-        <button
-          onClick={async () =>
-            await new Promise((resolve) =>
-              setTimeout(() => resolve(setAsyncState(asyncCount - 1)), 1000)
-            )
-          }
-        >
+        <button onClick={async () => setAsyncState(asyncCount - 1)}>
           async Decrement
         </button>
         <span>{asyncCount}</span>
 
-        <button
-          onClick={async () =>
-            await new Promise((resolve) =>
-              setTimeout(() => resolve(setAsyncState(asyncCount + 1)), 1000)
-            )
-          }
-        >
+        <button onClick={async () => setAsyncState(asyncCount + 1)}>
           async Increment
         </button>
       </div>
