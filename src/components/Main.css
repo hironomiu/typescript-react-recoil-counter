@@ -1,3 +1,9 @@
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 button {
   font-size: 25px;
 }
@@ -5,4 +11,11 @@ button {
 span {
   font-size: 30px;
   margin: 10px;
+}
+
+.div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
