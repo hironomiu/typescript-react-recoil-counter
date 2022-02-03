@@ -1,26 +1,57 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { FC, Suspense } from 'react'
+import { atom, RecoilRoot, selector } from 'recoil'
+import Main from './components/Main'
 
-function App() {
+export const counterAtom = atom({
+  key: 'counterAtom',
+  default: 0,
+})
+
+export const counterSelector = selector<number>({
+  key: 'counterSelector',
+  get: ({ get }) => {
+    const counter = get(counterAtom)
+    return counter
+  },
+  set: ({ set }, newValue) => {
+    set(counterAtom, newValue)
+  },
+})
+
+export const asyncCounterAtom = atom({
+  key: 'asyncCounterAtom',
+  default: 0,
+})
+
+export const asyncCounterSelector = selector<number>({
+  key: 'asyncCounterSelector',
+  get: async ({ get }) => {
+    const counter = get(asyncCounterAtom)
+
+    await new Promise((resolve) => setTimeout(() => resolve(1), 1000))
+
+    return counter
+  },
+  set: ({ set }, newValue) => {
+    // Error!! -> recoil.js:16 Uncaught Error: Recoil: Async selector sets are not currently supported.
+    // ;(async () =>
+    //   await new Promise((resolve) =>
+    //     setTimeout(() => resolve(set(counterAtom, newValue)), 1000)
+    //   ))()
+    set(asyncCounterAtom, newValue)
+  },
+})
+
+const App: FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <RecoilRoot>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Main />
+        </Suspense>
+      </RecoilRoot>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
