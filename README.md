@@ -2,6 +2,8 @@
 
 Recoil を利用したカウンターアプリ
 
+![demo](./demo.gif)
+
 ## Run
 
 ```
